@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "3Ane0DuAjfSPrVEzxiUO+PDQFFoWTWZ+0h9exRnd3vc=",
+  "Source": "ResearchHive",
+  "BasePath": "_content/ResearchHive",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ResearchHive\\wwwroot",
+      "Source": "ResearchHive",
+      "ContentRoot": "C:\\Users\\Sheriffdeen Saula O\\Desktop\\Engineering\\Personal\\ResearchHive\\ResearchHive\\wwwroot\\",
+      "BasePath": "_content/ResearchHive",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Sheriffdeen Saula O\\Desktop\\Engineering\\Personal\\ResearchHive\\ResearchHive\\wwwroot\\feedbackEmail.html",
+      "SourceId": "ResearchHive",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Sheriffdeen Saula O\\Desktop\\Engineering\\Personal\\ResearchHive\\ResearchHive\\wwwroot\\",
+      "BasePath": "_content/ResearchHive",
+      "RelativePath": "feedbackEmail.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\feedbackEmail.html"
+    }
+  ]
+}

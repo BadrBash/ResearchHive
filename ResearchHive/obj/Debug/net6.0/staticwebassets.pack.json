@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Sheriffdeen Saula O\\Desktop\\Engineering\\Personal\\ResearchHive\\ResearchHive\\wwwroot\\feedbackEmail.html",
+      "PackagePath": "staticwebassets\\feedbackEmail.html"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ResearchHive.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.ResearchHive.props",
+      "PackagePath": "build\\ResearchHive.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.ResearchHive.props",
+      "PackagePath": "buildMultiTargeting\\ResearchHive.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.ResearchHive.props",
+      "PackagePath": "buildTransitive\\ResearchHive.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
