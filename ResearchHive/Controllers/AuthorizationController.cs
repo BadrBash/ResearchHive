@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Data.Auth;
-using Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Application.DTOs.UserDtos;
 using ResearchHive.Wrapper;
 using Model.Entities;
-using ResearchHive.Services;
 using ResearchHive.Abstractions;
 using System.Security.Claims;
+using ResearchHive.Implementations.Services.CQRS.Commands.Role;
+using ResearchHive.Implementations.Services;
+using Application.Services.Commands.Admin;
+using Application.Services.Commands.User;
+using Application.Services.Queries.User;
 
 namespace API.Controllers
 {
@@ -87,8 +90,48 @@ namespace API.Controllers
             }
             var result = await _mediator.Send(request);
             return result.Succeeded ? Ok(result) : BadRequest(result);
+        } 
+        
+        [HttpPut]
+        [Route("user/update")]
+        /*        [ValidateAntiForgeryToken]*/
+        [Produces(typeof(Result<Guid>))]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUser.Request request)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                request.Model.UpdatedBy = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            }
+            var result = await _mediator.Send(request);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
+        [HttpPut]
+        [Route("delete")]
+        [Produces(typeof(Result<string>))]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUser.Request request)
+        {
+            var result = await _mediator.Send(request);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
         }
 
+        [HttpGet]
+        [Route("getall")]
+        [Produces(typeof(Result<IEnumerable<UserDto>>))]
+        public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsers.Request request)
+        {
+
+            var result = await _mediator.Send(request);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpGet]
+        [Route("user/{id}")]
+        [Produces(typeof(Result<UserDto>))]
+        public async Task<IActionResult> GetUser([FromQuery] GetById.Request request, [FromRoute] Guid id)
+        {
+            var result = await _mediator.Send(request);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
 
         [HttpPost]
         [Route("student")]

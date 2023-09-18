@@ -38,6 +38,7 @@ namespace Model.Entities
         public ProjectSubmissionWindow ProjectSubmissionWindow { get; private set;  }
         public bool IsComplete { get; private set; }
         public ICollection<Review> Reviews { get; private set; }
+        public DateTime DateCompleted { get; private set; } 
         public Project Approve()
         {
             if (IsComplete && ProjectStage == ProjectStage.AwaitingApproval)
@@ -61,6 +62,7 @@ namespace Model.Entities
                 && ProjectStage == ProjectStage.InProgress)
            {
                 ProjectStage = ProjectStage.AwaitingApproval;
+                DateCompleted = DateTime.UtcNow;
                 IsComplete = true;
                 return this;
            }

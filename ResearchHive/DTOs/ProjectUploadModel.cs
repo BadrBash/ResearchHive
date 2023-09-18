@@ -28,6 +28,7 @@
 
     public class DocumentPathAndNumber
     {
+        public string Folder { get; set; }
         public string DocumentPath { get; set; }
         public int ChapterNumber { get; set; }
     }

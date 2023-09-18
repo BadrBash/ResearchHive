@@ -6,11 +6,12 @@ namespace Model.Entities
 {
     public class ProjectDocument : BaseEntity
     {
-        public ProjectDocument(int chapterNumber, Guid projectId, string documentPath)
+        public ProjectDocument(int chapterNumber, Guid projectId, string documentPath, string folder)
         {
             ChapterNumber = chapterNumber;
             ProjectId = projectId;
             DocumentPath = documentPath;
+            Folder = folder;
             if(chapterNumber == 0 ) 
             {
                 throw new ArgumentException(ExceptionMessage.CannotBeZero);

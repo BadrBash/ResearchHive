@@ -16,6 +16,7 @@ namespace Model.Entities
         }
 
         public string Title { get; private set; }
+
         public string Description { get; private set; }
         public bool IsApproved { get; private set; }
         public ICollection<Review> Reviews { get; private set; }
@@ -53,5 +54,10 @@ namespace Model.Entities
 
         }
        
+        public Research Approve()
+        {
+            IsApproved = true;
+            return this;
+        }
     }
 }

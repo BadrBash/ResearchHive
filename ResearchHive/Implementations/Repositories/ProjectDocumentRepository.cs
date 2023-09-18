@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 using Persistence.Extensions;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Persistence.Repositories
 {
@@ -46,6 +47,20 @@ namespace Persistence.Repositories
             return await _context.ProjectDocuments.
                 Include(pD => pD.Project)
                 .Where(expression).ToPaginatedResultListAsync(filter.PageNumber, filter.PageSize);
+        }
+
+        public async Task<IEnumerable<ProjectDocument>> GetProjectDocumentsAsync()
+        {
+            return await _context.ProjectDocuments.
+            Include(pD => pD.Project)
+                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProjectDocument>> GetProjectDocumentsAsync(Expression<Func<ProjectDocument, bool>> expression)
+        {
+
+            return await _context.ProjectDocuments.Include(pD => pD.Project)
+                .Where(expression).ToListAsync();
         }
     }
 }

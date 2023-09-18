@@ -26,11 +26,13 @@ public class UserAuthenticationRepository : IUserAuthenticationRepository
 
     public UserAuthenticationRepository(IConfiguration configuration,
                                             IHostEnvironment hostingEnvironment,
-                                             IUserRepository userRepository)
+                                             IUserRepository userRepository,
+                                             IRoleRepository roleRepository)
     {
         _configuration = configuration;
         _hostingEnvironment = hostingEnvironment;
         _userRepository = userRepository;
+        _roleRepository = roleRepository;
     }
 
     public async Task<UserResult> RegisterUserAsync(RegisterUserRequestModel userRegistration)
@@ -45,18 +47,17 @@ public class UserAuthenticationRepository : IUserAuthenticationRepository
                 
             };
 
-            var result = await _userRepository.AddAsync(user);
             var role = await _roleRepository.Query(ro => ro.Name == userRegistration.Role.GetDescription()).FirstOrDefaultAsync();
-            if(result != null)
+            if(user != null)
             {
-                result.UserRoles.Add(new UserRole(result.Id, role.Id)
+                user.UserRoles.Add(new UserRole(user.Id, role.Id)
                 {
                     Role = role,
-                    User = result
+                    User = user
                 });
-                await _userRepository.UpdateAsync(result);
+                await _userRepository.AddAsync(user);
                 var saveResult = await _userRepository.SaveChangesAsync();
-                if(saveResult == 1)
+                if(saveResult != 0)
                 {
                     return new UserResult
                     {

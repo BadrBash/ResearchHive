@@ -13,8 +13,12 @@ using Persistence.Repositories;
 using ResearchHive.Authentication;
 using ResearchHive.Implementations.Repositories;
 using ResearchHive.Interfaces.Repositories;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
+using ResearchHive.Abstractions;
+using Application.Abstractions;
 
 namespace ResearchHive.IOC.Extensions
 {
@@ -40,15 +44,15 @@ namespace ResearchHive.IOC.Extensions
             var secretKey = jwtConfig["Key"];
             services
                 .AddScoped<IFileService, FileService>()
-               .AddSingleton<IJWTTokenHandler>(new JWTTokenHandler(secretKey));
-            /*AddScoped<IFileService, FileService>()*/
+               .AddSingleton<IJWTTokenHandler>(new JWTTokenHandler(secretKey))
+            .AddScoped<IAuthenticationService, AuthService>();
             /*.AddScoped<ITokenService, TokenService>*/
             return services;
         }
         public static IServiceCollection AddDatabase(this IServiceCollection service, string connectionString)
         {
             service.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                 options.UseNpgsql(connectionString));
             return service;
         }
         #endregion

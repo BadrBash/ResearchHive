@@ -18,12 +18,13 @@ namespace Application.Abstractions
         private readonly IUserRepository _userRepository;
         private readonly IJWTTokenHandler _jwtTokenHandler;
         public AuthService(IConfiguration configuration,
-            IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IUserAuthenticationRepository userAuthenticationRepository)
+            IUserRepository userRepository, IHttpContextAccessor httpContextAccessor, IUserAuthenticationRepository userAuthenticationRepository, IJWTTokenHandler jwtTokenHandler )
         {
           
             _configuration = configuration;
             _userRepository = userRepository;
             _userAuthenticationRepository = userAuthenticationRepository;
+            _jwtTokenHandler = jwtTokenHandler;
         }
        
 

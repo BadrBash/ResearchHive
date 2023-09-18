@@ -17,8 +17,10 @@ namespace Persistence.Repositories
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync()
-        {
-            return await _context.Projects.
+        {   
+            return await _context.Projects
+                .Include(pr => pr.Student)
+                 .ThenInclude(p => p.User).
                  Include(p => p.ProjectSubmissionWindow).ToListAsync();
 
         }
@@ -26,12 +28,16 @@ namespace Persistence.Repositories
         public async Task<PaginatedResult<Project>> GetAsync(PaginationFilter filter, Expression<Func<Project, bool>> expression)
         {
             return await _context.Projects.Include(p => p.ProjectSubmissionWindow)
+                .Include(pr => pr.Student)
+                 .ThenInclude(p => p.User)
                  .Where(expression).ToPaginatedResultListAsync(filter.PageSize, filter.PageNumber);
         }
 
         public async Task<IEnumerable<Project>> GetAsync(Expression<Func<Project, bool>> expression)
         {
             return await _context.Projects
+                .Include(pr => pr.Student)
+                .ThenInclude(p => p.User)
                 .Include(p => p.ProjectSubmissionWindow)
                 .Where(expression).ToListAsync();
         }
@@ -39,6 +45,8 @@ namespace Persistence.Repositories
         public async Task<Project> GetByExpressionAsync(Expression<Func<Project, bool>> expression)
         {
             return await _context.Projects
+                .Include(pr => pr.Student)
+                 .ThenInclude(p => p.User)
                  .Include(p => p.ProjectSubmissionWindow).Where(expression)
                  .SingleOrDefaultAsync();
         }

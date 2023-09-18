@@ -69,7 +69,7 @@ namespace Application.Services
         }
 
         public async Task<UploadProjectDocumentResponse> UploadProjectsAsync(ProjectDocumentUploadModel projectDocumentUploadModel, 
-            int maxNumberOfChapters, CancellationToken cancellationToken = default)
+             CancellationToken cancellationToken = default)
         {
                         var files = _httpContextAccessor?.HttpContext?.Request.Form;
                         var response = new UploadProjectDocumentResponse();
@@ -94,7 +94,7 @@ namespace Application.Services
                             }
                             
                             var chapterNumber = int.Parse(fileInfo.Name.Split(".")[0]);
-                            if(chapterNumber <= maxNumberOfChapters)
+                            if(chapterNumber <= projectDocumentUploadModel.MaxNumberOfChapters)
                             {
                                 string projectDocPath = $"-{chapterNumber}/{Guid.NewGuid().ToString()[..3]}{fileInfo.Extension}";
                                 string fullPath = Path.Combine(studentProjectDirectory, projectDocPath);
@@ -103,7 +103,8 @@ namespace Application.Services
                                 response.DocumentPathsAndNumber.Add(new()
                                 {
                                     ChapterNumber = chapterNumber,
-                                    DocumentPath = fullPath,
+                                    DocumentPath = projectDocPath,
+                                    Folder = studentProjectDirectory
                                 });
                                 response.Message = $"{response.DocumentPathsAndNumber.Count} {ResponseMessage.UploadSuccessful}";
                                 response.Succeeded = true;
