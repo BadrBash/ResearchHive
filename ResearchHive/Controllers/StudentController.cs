@@ -4,6 +4,7 @@ using Application.Services.Queries.Student;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ResearchHive.DTOs;
+using ResearchHive.Implementations.Services;
 using ResearchHive.Wrapper;
 using System.Security.Claims;
 
@@ -41,6 +42,16 @@ namespace API.Controllers
         [Route("delete")]
         [Produces(typeof(Result<Guid>))]
         public async Task<IActionResult> DeleteStudent([FromBody] DeleteStudent.Request request)
+        {
+            var result = await _mediator.Send(request);
+            return result.Succeeded ? Ok(result) : BadRequest(result);
+        }
+        
+        
+        [HttpPut]
+        [Route("assignsupervisor_tostudent")]
+        [Produces(typeof(Result<Guid>))]
+        public async Task<IActionResult> AssignSupervisorToStudent([FromQuery] AssignSupervisorToStudent.Request request)
         {
             var result = await _mediator.Send(request);
             return result.Succeeded ? Ok(result) : BadRequest(result);
